@@ -1,0 +1,6 @@
+.venv
+*.egg-info
+*.pt
+*.safetensors
+*.pyc
+__pycache__

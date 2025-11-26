@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flux2_gen"
+version = "0.1.0"
+dependencies = [
+  "torch",
+  "torchvision",
+  "diffusers @ git+https://github.com/huggingface/diffusers.git@e6d46123091afd58281dc7487c0f6b67055683b9",
+  "transformers",
+  "accelerate",
+  "bitsandbytes",
+  "requests",
+  "huggingface-hub",
+  "protobuf",
+  "sentencepiece",
+  "peft",
+]
+
+[project.scripts]
+flux2_gen = "flux2_gen.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
