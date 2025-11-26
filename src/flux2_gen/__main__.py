@@ -1,6 +1,5 @@
 import argparse
 import random
-
 from flux2_gen.pipeline import FluxGenerator
 
 def parse_arguments():
@@ -8,18 +7,18 @@ def parse_arguments():
     
     parser.add_argument("--lora", type=str, help="The filename of the LoRA .safetensors file")
     
-
     parser.add_argument("--lora-weight", type=float, default=0.2, help="Strength of the LoRA adapter (default: 0.2)")
-
     parser.add_argument("--prompt", type=str, required=True, help="The text prompt for image generation")
     
+
+    parser.add_argument("--image", type=str, default=None, help="Path to input image for img2img")
+    parser.add_argument("--strength", type=float, default=0.8, help="Denoising strength for img2img (0.0 to 1.0). Higher = more change.")
+
     parser.add_argument("--output", type=str, default="flux2_output.png", help="The filename for the saved image")
     
-
     parser.add_argument("--steps", type=int, default=50, help="Inference steps")
     parser.add_argument("--guidance", type=float, default=3.5, help="Guidance scale")
     parser.add_argument("--seed", type=int, default=None, help="Random seed for reproducibility")
-
     return parser.parse_args()
 
 def main():
@@ -32,13 +31,13 @@ def main():
     if args.lora:
         gen.load_lora(args.lora, weight=args.lora_weight)
 
-
     if args.seed is None:
         args.seed = random.randint(0, 2**32 - 1)
 
     # Generate
     image = gen.generate(
         prompt=args.prompt,
+        image_path=args.image,
         steps=args.steps,
         guidance=args.guidance,
         seed=args.seed
